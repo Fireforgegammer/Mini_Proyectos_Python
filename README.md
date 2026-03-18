@@ -54,3 +54,8 @@ Mezclar todo para que no sea predecible
 ● Criterios: longitud, presencia de mayúsculas, minúsculas, números y símbolos
 ● Devolver una puntuación: Débil / Media / Fuerte / Muy fuerte
 ● Mostrar el resultado de la evaluación junto a la contraseña generada
+# ahora voy a añadir una generacion multiple
+● Preguntar al usuario cuántas contraseñas quiere generar (1 a 10)
+● Generar todas las contraseñas con los mismos parámetros
+● Mostrarlas numeradas con su evaluación de fortaleza al lado
+● Validar que el número sea un entero positivo en rango
