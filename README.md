@@ -49,3 +49,8 @@ Mezclar todo para que no sea predecible
 # Tambien vamos a evitar que la contraseña contenga el usuario y vamos a añadir una validacion para que el usuario no rompa el programa al meter texto en vez de un numero
 # siguiente paso fue evitar que la contraseña contenga partes del usuario
 # hemos cambiado el numero de caracteres de contraseña de un minomo de 8 a un maximo de 128 y establecido un valor por defecto de 16
+# hemos cambiado el codigo para meterle un diccionario
+# Ahora vamos a Crear función separada que evalúe la fortaleza de una contraseña
+● Criterios: longitud, presencia de mayúsculas, minúsculas, números y símbolos
+● Devolver una puntuación: Débil / Media / Fuerte / Muy fuerte
+● Mostrar el resultado de la evaluación junto a la contraseña generada
