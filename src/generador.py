@@ -1,40 +1,8 @@
 import string
-import secrets
-
-def generar_password(usuario, longitud):
-    if longitud < 3 or longitud > 12:
-        raise ValueError("La longitud debe estar entre 3 y 12 caracteres")
-
-    while True:
-        # 1. Caracteres obligatorios
-        mayuscula = secrets.choice(string.ascii_uppercase)
-        minuscula = secrets.choice(string.ascii_lowercase)
-        numero = secrets.choice(string.digits)
-        simbolo = secrets.choice(string.punctuation)
-
-        # 2. Todos los caracteres posibles
-        todos = string.ascii_letters + string.digits + string.punctuation
-
-        # 3. Rellenar
-        restantes = [secrets.choice(todos) for _ in range(longitud - 4)]
-
-        # 4. Mezclar
-        contrasena_lista = [mayuscula, minuscula, numero, simbolo] + restantes
-        secrets.SystemRandom().shuffle(contrasena_lista)
-
-        contrasena = ''.join(contrasena_lista)
-
-        # 5. Validar que no sea igual al usuario
-        if usuario.lower() not in contrasena.lower():
-            return contrasena
-
-
-# 🔹 Uso
-import string
 
 def validar_password(usuario, password):
-    if len(password) < 4 or len(password) > 12:
-        return "❌ La contraseña debe tener entre 4 y 12 caracteres"
+    if len(password) < 8 or len(password) > 128:
+        return "❌ La contraseña debe tener entre 8 y 128 caracteres"
 
     if usuario.lower() in password.lower():
         return "❌ La contraseña no puede contener el usuario"
@@ -54,13 +22,18 @@ def validar_password(usuario, password):
     return "✅ Contraseña válida"
 
 
-# 🔹 NUEVO USO
+# 🔹 USO
 usuario = input("Introduce tu usuario: ")
 
 while True:
-    password = input("Introduce tu contraseña: ")
-    resultado = validar_password(usuario, password)
+    password = input("Introduce tu contraseña (ENTER = usar una por defecto): ")
 
+    # 👉 valor por defecto si no escribe nada
+    if password == "":
+        password = "Aa1!" * 4  # 16 caracteres seguros
+        print("⚠️ Usando contraseña por defecto:", password)
+
+    resultado = validar_password(usuario, password)
     print(resultado)
 
     if "✅" in resultado:
