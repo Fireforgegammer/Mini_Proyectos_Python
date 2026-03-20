@@ -1,4 +1,5 @@
 def mostrar_menu():
+    print("🔥 MENU NUEVO CARGADO 🔥")
     print("\n🔐 GESTOR DE CONTRASEÑAS")
     print("1. Generar contraseñas")
     print("2. Ver contraseñas")
@@ -6,3 +7,4 @@ def mostrar_menu():
     print("4. Añadir sitio")
     print("5. Eliminar contraseña")
     print("6. Buscar contraseña")
+    print("DEBUG MENU CORRECTO")
