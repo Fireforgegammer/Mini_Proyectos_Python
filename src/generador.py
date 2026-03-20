@@ -1,5 +1,6 @@
 import string
 import secrets
+import json
 
 def obtener_configuracion():
     print("\n🔧 CONFIGURA TU CONTRASEÑA")
@@ -116,19 +117,31 @@ def main():
     cantidad = pedir_cantidad()
 
     try:
-        # Construimos el pool UNA sola vez
         pool, _ = construir_pool(config)
 
-        print("\n📋 CONTRASEÑAS GENERADAS:\n")
+        # 1. Generar
+        passwords = []
 
-        for i in range(1, cantidad + 1):
-            # Generamos obligatorios nuevos cada vez
+        for _ in range(cantidad):
             _, obligatorios = construir_pool(config)
-
             password = generar_password(longitud, pool, obligatorios)
-            nivel = evaluar_password(password)
 
-            print(f"{i}. {password} → {nivel}")
+            passwords.append({
+                "sitio": None,
+                "password": password
+            })
+
+        # 💾 Guardar en JSON (BIEN COLOCADO)
+        with open("passwords.json", "w") as f:
+            json.dump(passwords, f, indent=4)
+
+        print("\n💾 Contraseñas guardadas en passwords.json")
+
+        # 2. Mostrar
+        print("\n📋 CONTRASEÑAS GENERADAS:\n")
+        for i, item in enumerate(passwords, start=1):
+            nivel = evaluar_password(item["password"])
+            print(f"{i}. {item['password']} → {nivel}")
 
     except ValueError as e:
         print(e)
