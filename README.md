@@ -59,3 +59,4 @@ Mezclar todo para que no sea predecible
 ● Generar todas las contraseñas con los mismos parámetros
 ● Mostrarlas numeradas con su evaluación de fortaleza al lado
 ● Validar que el número sea un entero positivo en rango
+* vamos a hacerlas dentro del bucle para que no compartan caracteres base

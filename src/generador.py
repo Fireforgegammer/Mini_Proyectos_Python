@@ -22,20 +22,30 @@ def construir_pool(config):
         "simbolos": string.punctuation
     }
 
-    caracteres = ""
+    pool = ""              # 👈 ESTA ES LA VARIABLE CORRECTA
+    obligatorios = []
 
     for clave, activo in config.items():
         if activo:
-            caracteres += opciones[clave]
+            caracteres = opciones[clave]   # 👈 se define aquí
+            pool += caracteres             # 👈 usamos pool, NO caracteres
+            obligatorios.append(secrets.choice(caracteres))
 
-    if not caracteres:
+    if not pool:
         raise ValueError("❌ Debes seleccionar al menos un tipo de carácter")
 
-    return caracteres
+    return pool, obligatorios
 
 
-def generar_password(longitud, caracteres):
-    return ''.join(secrets.choice(caracteres) for _ in range(longitud))
+def generar_password(longitud, pool, obligatorios):
+    restante = longitud - len(obligatorios)
+
+    password = obligatorios + [
+        secrets.choice(pool) for _ in range(restante)
+    ]
+
+    secrets.SystemRandom().shuffle(password)
+    return ''.join(password)
 
 
 import string
@@ -82,6 +92,20 @@ def pedir_longitud():
                 print("❌ Debe estar entre 8 y 128")
         except ValueError:
             print("❌ Introduce un número válido")
+            
+            
+def pedir_cantidad():
+    while True:
+        entrada = input("¿Cuántas contraseñas quieres generar? (1-10): ")
+
+        try:
+            cantidad = int(entrada)
+            if 1 <= cantidad <= 10:
+                return cantidad
+            else:
+                print("❌ Debe estar entre 1 y 10")
+        except ValueError:
+            print("❌ Introduce un número válido")
 
 
 def main():
@@ -89,18 +113,25 @@ def main():
 
     config = obtener_configuracion()
     longitud = pedir_longitud()
+    cantidad = pedir_cantidad()
 
     try:
-        pool = construir_pool(config)
-        password = generar_password(longitud, pool)
-        nivel = evaluar_password(password)
+        # Construimos el pool UNA sola vez
+        pool, _ = construir_pool(config)
 
-        print("\n✅ Contraseña generada:", password)
-        print("📊 Fortaleza:", nivel)
+        print("\n📋 CONTRASEÑAS GENERADAS:\n")
+
+        for i in range(1, cantidad + 1):
+            # Generamos obligatorios nuevos cada vez
+            _, obligatorios = construir_pool(config)
+
+            password = generar_password(longitud, pool, obligatorios)
+            nivel = evaluar_password(password)
+
+            print(f"{i}. {password} → {nivel}")
 
     except ValueError as e:
         print(e)
-
 
 # ▶️ Ejecutar
 main()
