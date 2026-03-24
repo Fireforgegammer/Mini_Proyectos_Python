@@ -21,12 +21,13 @@ def ver_passwords():
 def anadir_sitio():
     sitio = input("🌐 Sitio: ")
     password = input("🔑 Contraseña: ")
-
+    
+    passwords = cargar_passwords() 
     nueva = {
         "sitio": sitio,
         "password": password
     }
-
+    passwords.append(nueva)
     guardar_passwords([nueva])
     print("✅ Guardado correctamente")
     
@@ -53,3 +54,18 @@ def buscar_password():
 
     for i, item in enumerate(encontrados, start=1):
         print(f"{i}. {item['sitio']} -> {item['password']}")
+        
+def pedir_configuracion_password():
+    print("\n📋 ¿Qué caracteres quieres incluir?")
+    
+    incluir_minus = input("¿Minúsculas? (s/n): ").lower() == 's'
+    incluir_mayus = input("¿Mayúsculas? (s/n): ").lower() == 's'
+    incluir_numeros = input("¿Números? (s/n): ").lower() == 's'
+    incluir_simbolos = input("¿Símbolos? (s/n): ").lower() == 's'
+
+    return {
+        "minus": incluir_minus,
+        "mayus": incluir_mayus,
+        "numeros": incluir_numeros,
+        "simbolos": incluir_simbolos
+    }        

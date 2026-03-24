@@ -4,7 +4,8 @@ from ui.acciones import (
     ver_passwords,
     anadir_sitio,
     eliminar_password,
-    buscar_password
+    buscar_password,
+    pedir_configuracion_password 
 )
 import sys
 print("DEBUG PATH:", sys.path)
@@ -20,21 +21,20 @@ def main():
 
         if opcion == "1":
           print("👉 ENTRO EN 1")
-           # Configuración fija para pruebas
-          config = {
-                "minus": True,
-                "mayus": True,
-                "numeros": True,
-                "simbolos": False
-            }
+           
+          
             
-            # Valores fijos
-          longitud = 12
-          pantalla, obligatorios = construir_pantalla(config)
-            
-            # Generar contraseña
-          password = generar_password(longitud, pantalla, obligatorios)
-          print(f"\n✅ Contraseña generada: {password}\n")
+          config = pedir_configuracion_password() 
+          longitud = int(input("Longitud de la contraseña: "))
+          cantidad = int(input("¿Cuántas contraseñas quieres generar?: "))
+         
+         
+          pantalla, obligatorios = construir_pantalla(config)                  
+          
+          for i in range(cantidad):
+              password = generar_password(longitud, pantalla, obligatorios)
+              print(f"{i+1}. {password}")
+              
         elif opcion == "2":
           print("👉 ENTRO EN 2")
           ver_passwords()
