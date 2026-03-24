@@ -9,8 +9,8 @@ def cargar_passwords(archivo="passwords.json"):
 
 
 def guardar_passwords(passwords, archivo="passwords.json"):
-    existentes = cargar_passwords(archivo)
-    existentes.extend(passwords)
+    with open(archivo, "w") as f:
+        json.dump(passwords, f, indent=4)
 
     with open(archivo, "w") as f:
         json.dump(existentes, f, indent=4)

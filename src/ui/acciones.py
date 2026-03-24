@@ -19,17 +19,41 @@ def ver_passwords():
     }")
         
 def anadir_sitio():
-    sitio = input("🌐 Sitio: ")
-    password = input("🔑 Contraseña: ")
-    
-    passwords = cargar_passwords() 
-    nueva = {
-        "sitio": sitio,
-        "password": password
-    }
-    passwords.append(nueva)
-    guardar_passwords([nueva])
-    print("✅ Guardado correctamente")
+    passwords = cargar_passwords()
+
+    # 1. Filtrar las que no tienen sitio
+    sin_sitio = [p for p in passwords if p.get("sitio") is None]
+
+    if not sin_sitio:
+        print("❌ No hay contraseñas sin asignar")
+        return
+
+    # 2. Mostrar lista (como opción 2)
+    print("\n🔑 Contraseñas sin asignar:")
+    for i, p in enumerate(sin_sitio):
+        print(f"{i+1}. Sin asignar -> {p['password']}")
+
+    # 3. Elegir una
+    try:
+        eleccion = int(input("Elige una contraseña: ")) - 1
+        seleccionada = sin_sitio[eleccion]
+    except:
+        print("❌ Selección inválida")
+        return
+
+    # 4. Pedir sitio
+    sitio = input("🌐 Introduce el sitio: ")
+
+    # 5. Actualizar la original
+    for p in passwords:
+        if p == seleccionada:
+            p["sitio"] = sitio
+            break
+
+    # 6. Guardar cambios
+    guardar_passwords(passwords)
+
+    print("✅ Sitio añadido correctamente")
     
 def eliminar_password():
     print("🗑️ Eliminar password (pendiente implementar)")

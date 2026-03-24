@@ -1,5 +1,5 @@
 def mostrar_menu():
-    print("🔥 MENU NUEVO CARGADO 🔥")
+    print("🔥 Elegir Opcion 🔥")
     print("\n🔐 GESTOR DE CONTRASEÑAS")
     print("1. Generar contraseñas")
     print("2. Ver contraseñas")
