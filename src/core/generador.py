@@ -25,6 +25,9 @@ def construir_pantalla(config):
 
 
 def generar_password(longitud, pantalla, obligatorios):
+    if longitud < len(obligatorios):
+        raise ValueError("La longitud es menor que los caracteres obligatorios")
+    
     restante = longitud - len(obligatorios)
 
     password = obligatorios + [
