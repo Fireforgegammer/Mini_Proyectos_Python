@@ -18,7 +18,6 @@ def main():
         mostrar_menu()
         opcion = input("Elige una opción: ").strip()
 
-
         if opcion == "1":
             print("👉 ENTRO EN 1")
 
@@ -40,20 +39,19 @@ def main():
 
         elif opcion == "3":
             print("👉 ENTRO EN 3")
-            break   # ✅ AQUÍ VA EL BREAK
+            anadir_sitio()
 
         elif opcion == "4":
             print("👉 ENTRO EN 4")
-            
-            anadir_sitio()
+            eliminar_password()
 
         elif opcion == "5":
             print("👉 ENTRO EN 5")
-            eliminar_password()
+            buscar_password()
 
         elif opcion == "6":
             print("👉 ENTRO EN 6")
-            buscar_password()
+            break
 
         else:
             print("❌ Opción inválida")
