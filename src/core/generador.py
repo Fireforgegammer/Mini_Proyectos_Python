@@ -9,28 +9,28 @@ def construir_pantalla(config):
         "simbolos": string.punctuation
     }
 
-    pantalla = ""
-    obligatorios = []
+    pool = ""
+    required_chars = []
 
     for clave, activo in config.items():
         if activo:
             caracteres = opciones[clave]
-            pantalla += caracteres
-            obligatorios.append(secrets.choice(caracteres))
+            pool += caracteres
+            required_chars.append(secrets.choice(caracteres))
 
-    if not pantalla:
+    if not pool:
         raise ValueError("❌ Debes seleccionar al menos un tipo de carácter")
 
-    return pantalla, obligatorios
+    return pool, required_chars
 
 
-def generar_password(longitud, pantalla, obligatorios):
-    if longitud < len(obligatorios):
-        raise ValueError("La longitud es menor que los caracteres obligatorios")
+def generar_password(longitud, pantalla, required_chars):
+    if longitud < len(required_chars):
+        raise ValueError("La longitud es menor que los caracteres required_chars")
     
-    restante = longitud - len(obligatorios)
+    restante = longitud - len(required_chars)
 
-    password = obligatorios + [
+    password = required_chars + [
         secrets.choice(pantalla) for _ in range(restante)
     ]
 
@@ -39,12 +39,12 @@ def generar_password(longitud, pantalla, obligatorios):
 
 
 def generar_passwords(config, longitud, cantidad):
-    pantalla, obligatorios_base = construir_pantalla(config)
+    pantalla, required_chars_base = construir_pantalla(config)
     passwords = []
 
     for _ in range(cantidad):
-        obligatorios = obligatorios_base.copy()
-        password = generar_password(longitud, pantalla, obligatorios)
+        required_chars = required_chars_base.copy()
+        password = generar_password(longitud, pantalla, required_chars)
 
         passwords.append({
             "sitio": None,

@@ -2,9 +2,9 @@ from core.storage import cargar_passwords, guardar_passwords
 from core.evaluador import evaluar_password
 
 def mostrar_passwords(passwords):
-    for i, p in enumerate(passwords, start=1):
-        sitio = p["sitio"] or "Sin asignar"
-        print(f"{i}. {sitio} -> {p['password']}")
+    for i, item in enumerate(passwords, start=1):
+        sitio = item["sitio"] or "Sin asignar"
+        print(f"{i}. {sitio} -> {item['password']}")
 def ver_passwords():
     passwords = cargar_passwords()
 
@@ -116,6 +116,17 @@ def pedir_opcion(mensaje):
             return opcion == "s"
         else:
             print("❌ Solo puedes introducir 's' o 'n'")
+            
+def pedir_numero(mensaje, minimo=1):
+    while True:
+        valor = input(mensaje).strip()
+
+        if valor.isdigit():
+            numero = int(valor)
+            if numero >= minimo:
+                return numero
+
+        print(f"❌ Introduce un número mayor o igual a {minimo}")
         
 def pedir_configuracion_password():
     print("\n📋 ¿Qué caracteres quieres incluir?")
@@ -136,8 +147,8 @@ from core.generador import generar_passwords
 
 def generar_y_guardar_passwords():
     config = pedir_configuracion_password()
-    longitud = int(input("Longitud de la contraseña: "))
-    cantidad = int(input("¿Cuántas contraseñas quieres generar?: "))
+    longitud = pedir_numero("Longitud de la contraseña: ", minimo=4)
+    cantidad = pedir_numero("¿Cuántas contraseñas quieres generar?: ", minimo=1)
 
     nuevas_passwords = generar_passwords(config, longitud, cantidad)
 
