@@ -1,12 +1,10 @@
-from core.generador import generar_passwords
-from core.storage import cargar_passwords, guardar_passwords
 from ui.menu import mostrar_menu
 from ui.acciones import (
     ver_passwords,
     anadir_sitio,
     eliminar_password,
     buscar_password,
-    pedir_configuracion_password 
+    generar_y_guardar_passwords
 )
 import sys
 print("DEBUG PATH:", sys.path)
@@ -20,18 +18,7 @@ def main():
 
         if opcion == "1":
             print("👉 ENTRO EN 1")
-
-            config = pedir_configuracion_password() 
-            longitud = int(input("Longitud de la contraseña: "))
-            cantidad = int(input("¿Cuántas contraseñas quieres generar?: "))
-
-            nuevas_passwords = generar_passwords(config, longitud, cantidad)
-
-            for i, p in enumerate(nuevas_passwords, start=1):
-                print(f"{i}. {p['password']}")
-            passwords_existentes = cargar_passwords()
-            passwords_existentes.extend(nuevas_passwords)
-            guardar_passwords(passwords_existentes)
+            generar_y_guardar_passwords()
 
         elif opcion == "2":
             print("👉 ENTRO EN 2")

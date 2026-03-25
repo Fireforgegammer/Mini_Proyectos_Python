@@ -1,7 +1,10 @@
 from core.storage import cargar_passwords, guardar_passwords
 from core.evaluador import evaluar_password
 
-
+def mostrar_passwords(passwords):
+    for i, p in enumerate(passwords, start=1):
+        sitio = p["sitio"] or "Sin asignar"
+        print(f"{i}. {sitio} -> {p['password']}")
 def ver_passwords():
     passwords = cargar_passwords()
 
@@ -12,8 +15,7 @@ def ver_passwords():
     for i, item in enumerate(passwords, start=1):
         sitio = item["sitio"] or "Sin asignar"
         nivel = evaluar_password(item["password"])
-        print(f"{i}. {sitio} -> {item['password']} -> {nivel
-    }")
+        print(f"{i}. {sitio} -> {item['password']} -> {nivel}")
         
 def anadir_sitio():
     passwords = cargar_passwords()
@@ -34,7 +36,7 @@ def anadir_sitio():
     try:
         eleccion = int(input("Elige una contraseña: ")) - 1
         seleccionada = sin_sitio[eleccion]
-    except:
+    except (ValueError, IndexError):
         print("❌ Selección inválida")
         return
 
@@ -61,9 +63,7 @@ def eliminar_password():
 
     # 1. Mostrar lista
     print("\n🗑️ Lista de contraseñas:")
-    for i, p in enumerate(passwords, start=1):
-        sitio = p["sitio"] or "Sin asignar"
-        print(f"{i}. {sitio} -> {p['password']}")
+    mostrar_passwords(passwords)
 
     # 2. Elegir
     try:
@@ -94,7 +94,7 @@ def buscar_password():
         print("\n❌ No hay contraseñas")
         return
 
-    busqueda = input("🔍 Introduce el sitio a buscar: ").lower()
+    busqueda = input("🔍 Introduce el sitio a buscar: ").strip().lower()
 
     encontrados = [
         p for p in passwords
@@ -131,3 +131,21 @@ def pedir_configuracion_password():
         "numeros": incluir_numeros,
         "simbolos": incluir_simbolos
     }
+    
+from core.generador import generar_passwords
+
+def generar_y_guardar_passwords():
+    config = pedir_configuracion_password()
+    longitud = int(input("Longitud de la contraseña: "))
+    cantidad = int(input("¿Cuántas contraseñas quieres generar?: "))
+
+    nuevas_passwords = generar_passwords(config, longitud, cantidad)
+
+    for i, p in enumerate(nuevas_passwords, start=1):
+        print(f"{i}. {p['password']}")
+
+    passwords_existentes = cargar_passwords()
+    passwords_existentes.extend(nuevas_passwords)
+    guardar_passwords(passwords_existentes)
+
+    print("✅ Contraseñas guardadas correctamente")
