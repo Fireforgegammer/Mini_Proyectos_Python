@@ -1,4 +1,5 @@
-from core.generador import generar_password, construir_pantalla
+from core.generador import generar_passwords
+from core.storage import cargar_passwords, guardar_passwords
 from ui.menu import mostrar_menu
 from ui.acciones import (
     ver_passwords,
@@ -17,7 +18,6 @@ def main():
         mostrar_menu()
         opcion = input("Elige una opción: ").strip()
 
-        print(f"DEBUG opcion elegida: '{opcion}'")
 
         if opcion == "1":
             print("👉 ENTRO EN 1")
@@ -26,20 +26,10 @@ def main():
             longitud = int(input("Longitud de la contraseña: "))
             cantidad = int(input("¿Cuántas contraseñas quieres generar?: "))
 
-            pantalla, obligatorios = construir_pantalla(config)
+            nuevas_passwords = generar_passwords(config, longitud, cantidad)
 
-            nuevas_passwords = []
-
-
-            for i in range(cantidad):
-                password = generar_password(longitud, pantalla, obligatorios)
-                print(f"{i+1}. {password}")
-
-                nuevas_passwords.append({
-                    "password": password,
-                    "sitio": None
-                })
-
+            for i, p in enumerate(nuevas_passwords, start=1):
+                print(f"{i}. {p['password']}")
             passwords_existentes = cargar_passwords()
             passwords_existentes.extend(nuevas_passwords)
             guardar_passwords(passwords_existentes)
@@ -54,6 +44,7 @@ def main():
 
         elif opcion == "4":
             print("👉 ENTRO EN 4")
+            
             anadir_sitio()
 
         elif opcion == "5":
@@ -68,5 +59,5 @@ def main():
             print("❌ Opción inválida")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     main()

@@ -7,4 +7,3 @@ def mostrar_menu():
     print("4. Añadir sitio")
     print("5. Eliminar contraseña")
     print("6. Buscar contraseña")
-    print("DEBUG MENU CORRECTO")

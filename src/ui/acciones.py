@@ -3,10 +3,7 @@ from core.evaluador import evaluar_password
 
 
 def ver_passwords():
-    print("DEBUG: dentro de la función")  # 👈 AÑADE ESTO
-
     passwords = cargar_passwords()
-    print("DEBUG passwords:", passwords)  # 👈 Y ESTO
 
     if not passwords:
         print("\n❌ No hay contraseñas")
@@ -56,7 +53,39 @@ def anadir_sitio():
     print("✅ Sitio añadido correctamente")
     
 def eliminar_password():
-    print("🗑️ Eliminar password (pendiente implementar)")
+    passwords = cargar_passwords()
+
+    if not passwords:
+        print("❌ No hay contraseñas para eliminar")
+        return
+
+    # 1. Mostrar lista
+    print("\n🗑️ Lista de contraseñas:")
+    for i, p in enumerate(passwords, start=1):
+        sitio = p["sitio"] or "Sin asignar"
+        print(f"{i}. {sitio} -> {p['password']}")
+
+    # 2. Elegir
+    try:
+        eleccion = int(input("Elige el número a eliminar: ")) - 1
+
+        if eleccion < 0 or eleccion >= len(passwords):
+            print("❌ Selección fuera de rango")
+            return
+
+    except ValueError:
+        print("❌ Debes introducir un número")
+        return
+
+    # 3. Eliminar
+    eliminada = passwords.pop(eleccion)
+
+    # 4. Guardar
+    guardar_passwords(passwords)
+
+    # 5. Confirmación
+    sitio = eliminada["sitio"] or "Sin asignar"
+    print(f"✅ Eliminada: {sitio} -> {eliminada['password']}")
     
 def buscar_password():
     passwords = cargar_passwords()
@@ -69,7 +98,7 @@ def buscar_password():
 
     encontrados = [
         p for p in passwords
-        if busqueda in p["sitio"].lower()
+        if p["sitio"] and busqueda in p["sitio"].lower()
     ]
 
     if not encontrados:
@@ -79,17 +108,26 @@ def buscar_password():
     for i, item in enumerate(encontrados, start=1):
         print(f"{i}. {item['sitio']} -> {item['password']}")
         
+def pedir_opcion(mensaje):
+    while True:
+        opcion = input(mensaje).strip().lower()
+
+        if opcion in ("s", "n"):
+            return opcion == "s"
+        else:
+            print("❌ Solo puedes introducir 's' o 'n'")
+        
 def pedir_configuracion_password():
     print("\n📋 ¿Qué caracteres quieres incluir?")
     
-    incluir_minus = input("¿Minúsculas? (s/n): ").lower() == 's'
-    incluir_mayus = input("¿Mayúsculas? (s/n): ").lower() == 's'
-    incluir_numeros = input("¿Números? (s/n): ").lower() == 's'
-    incluir_simbolos = input("¿Símbolos? (s/n): ").lower() == 's'
+    incluir_minus = pedir_opcion("¿Minúsculas? (s/n): ")
+    incluir_mayus = pedir_opcion("¿Mayúsculas? (s/n): ")
+    incluir_numeros = pedir_opcion("¿Números? (s/n): ")
+    incluir_simbolos = pedir_opcion("¿Símbolos? (s/n): ")
 
     return {
         "minus": incluir_minus,
         "mayus": incluir_mayus,
         "numeros": incluir_numeros,
         "simbolos": incluir_simbolos
-    }        
+    }

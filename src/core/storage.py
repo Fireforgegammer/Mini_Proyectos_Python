@@ -1,4 +1,4 @@
-import json
+import json 
 
 def cargar_passwords(archivo="passwords.json"):
     try:
@@ -9,8 +9,5 @@ def cargar_passwords(archivo="passwords.json"):
 
 
 def guardar_passwords(passwords, archivo="passwords.json"):
-    with open(archivo, "w") as f:
+    with  open(archivo, "w") as f:
         json.dump(passwords, f, indent=4)
-
-    with open(archivo, "w") as f:
-        json.dump(existentes, f, indent=4)
