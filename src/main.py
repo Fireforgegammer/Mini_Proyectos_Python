@@ -17,27 +17,27 @@ def main():
         opcion = input("Elige una opción: ").strip()
 
         if opcion == "1":
-            print("👉 ENTRO EN 1")
+            print("Selecione opciones")
             generar_y_guardar_passwords()
 
         elif opcion == "2":
-            print("👉 ENTRO EN 2")
+            print("Mostrando contraseñas")
             ver_passwords()
 
         elif opcion == "3":
-            print("👉 ENTRO EN 3")
+            print("Selecion de nombre")
             anadir_sitio()
 
         elif opcion == "4":
-            print("👉 ENTRO EN 4")
+            print("Selecione opcion")
             eliminar_password()
 
         elif opcion == "5":
-            print("👉 ENTRO EN 5")
+            print("Introduzca nombre")
             buscar_password()
 
         elif opcion == "6":
-            print("👉 ENTRO EN 6")
+            print("Gracias")
             break
 
         else:
