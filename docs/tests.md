@@ -1,4 +1,4 @@
-E generado los tests 100% compatibles con pytest usando unittest.mock para los mocks — funcionarán perfectamente cuando tengas pytest instalado en tu proyecto con pip install pytest pytest-mock.
+He generado los tests 100% compatibles con pytest usando unittest.mock para los mocks — funcionarán perfectamente cuando tengas pytest instalado en tu proyecto con pip install pytest pytest-mock.
 # resumen de lo generado
 tests/
 ├── conftest.py                          # Fixtures compartidas
@@ -14,5 +14,5 @@ tests/
 pip install pytest pytest-mock
 pytest tests/ -v
 # para ejecutar solo unitarios o solo integracion
-pytest tests/unit/ -v
+pytest tests/unitarios/ -v
 pytest tests/integration/ -v

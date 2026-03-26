@@ -1,0 +1,4 @@
+# La IA me a ayudado y aconsejado, pero yo decido.
+He usado la IA como si fuera mi Senior, asesorandome y mostrandome mejoras y opciones basandose en la estructura que yo le iba dando y en las ideas que poco a poco le sugeria, para asi poder pasar de un programa amateur, a uno intermedio.
+# Nunca pierdas la esencia de tu proyecto.
+Muchas sugerencias que me a dado la IA, las e ido descartando, bien porque no encajaban en mi idea, o bien porque queria adelantarse mucho, y queria saltarse pasos claves para mi, tanto para que el proyecto fuese como yo queria, como para saber por donde iba y que estaba haciendo.

@@ -1,62 +1,256 @@
- # 🔐 Generador de Contraseñas en Python
+# 🐍 Mini Proyectos Python
 
-Un pequeño proyecto en Python que genera contraseñas seguras personalizables.
+> **Repositorio de proyectos prácticos en Python, pensados para aprender de forma clara y progresiva.**
+> 🎯 Para cualquier edad, cualquier nivel, cualquier actitud. ¡Lo importante es querer aprender!
 
-# 🚀 Características
+---
 
-Generación de contraseñas aleatorias
+## 📋 Tabla de Contenidos
 
-Longitud configurable
+* [🧭 Sobre este repositorio](#-sobre-este-repositorio)
+* [📦 Proyectos disponibles](#-proyectos-disponibles)
 
-Inclusión de:
+  * [🔐 Generador de Contraseñas](#-generador-de-contraseñas)
+* [🚀 Cómo usar este repositorio](#-cómo-usar-este-repositorio)
+* [🛠️ Requisitos](#️-requisitos)
+* [📜 Licencia](#-licencia)
+* [👤 Autor](#-autor)
 
-Letras mayúsculas
+---
 
-Letras minúsculas
+## 🧭 Sobre este repositorio
 
-Números
+Este repositorio reúne **mini proyectos en Python** construidos paso a paso.
 
-Símbolos
+* ✅ Nivel: Principiante → Intermedio
+* 🎓 Objetivo: Aprender creando proyectos reales
+* 🔨 Enfoque: Evolución progresiva + buenas prácticas
 
-# ¿Por qué usar secrets y no random?
+---
 
-👉 Respuesta clara:
+## 📦 Proyectos disponibles
 
-random NO es seguro → se puede predecir (está pensado para juegos/simulaciones)
+---
 
-secrets SÍ es seguro → usa generación criptográfica (ideal para contraseñas)
+## 🔐 Generador de Contraseñas
 
-🔐 En resumen:
+> 📁 `/generador_contraseñas`
 
-random → rápido pero predecible
+Generador de contraseñas seguras usando `secrets`, con validación avanzada y arquitectura modular.
 
-secrets → seguro e impredecible ✔️
+---
 
-# Le eh pedido que me garantice que haya al menos 1 mayuscula, 1 numero y 1 simbolo
-La idea es:
+### 🚀 Características
 
-Forzar esos caracteres obligatorios
+| Característica         | Detalle               |
+| ---------------------- | --------------------- |
+| 🔡 Letras mayúsculas   | Opcional              |
+| 🔠 Letras minúsculas   | Opcional              |
+| 🔢 Números             | Garantizado           |
+| ⚡ Símbolos             | Garantizado           |
+| 📏 Longitud            | 8–128 (def. 16)       |
+| 🧍 Seguridad           | Evita usar el usuario |
+| 💪 Fortaleza           | Débil → Muy fuerte    |
+| 🔁 Generación múltiple | 1–10                  |
 
-Completar el resto aleatoriamente
+---
 
-Mezclar todo para que no sea predecible
-¿Por qué esto funciona?
-✔ Primero aseguramos los obligatorios
-✔ Luego rellenamos el resto
-✔ Finalmente mezclamos → evita patrones como: A3$xxxxxxx
+### 🧱 Arquitectura del proyecto
 
-# Le eh pedido que la contraseña tenga una longitud minima de 3 caracteres y maxima de 12 y que no pueda usarse el usuario como password.
-# Tambien vamos a evitar que la contraseña contenga el usuario y vamos a añadir una validacion para que el usuario no rompa el programa al meter texto en vez de un numero
-# siguiente paso fue evitar que la contraseña contenga partes del usuario
-# hemos cambiado el numero de caracteres de contraseña de un minomo de 8 a un maximo de 128 y establecido un valor por defecto de 16
-# hemos cambiado el codigo para meterle un diccionario
-# Ahora vamos a Crear función separada que evalúe la fortaleza de una contraseña
-● Criterios: longitud, presencia de mayúsculas, minúsculas, números y símbolos
-● Devolver una puntuación: Débil / Media / Fuerte / Muy fuerte
-● Mostrar el resultado de la evaluación junto a la contraseña generada
-# ahora voy a añadir una generacion multiple
-● Preguntar al usuario cuántas contraseñas quiere generar (1 a 10)
-● Generar todas las contraseñas con los mismos parámetros
-● Mostrarlas numeradas con su evaluación de fortaleza al lado
-● Validar que el número sea un entero positivo en rango
-# vamos a hacerlas dentro del bucle para que no compartan caracteres base
+```
+generador_contraseñas/
+├── main.py
+├── core/
+│   ├── generador.py
+│   ├── evaluador.py
+│   └── storage.py
+├── ui/
+│   ├── menu.py
+│   └── acciones.py
+```
+
+Separación clara:
+
+* `core` → lógica
+* `ui` → interacción
+* `main` → ejecución
+
+---
+
+## 🗺️ Diagramas de flujo
+
+---
+
+### 🔄 Flujo general del programa
+
+```
+┌────────────────────────────┐
+│        INICIO              │
+└────────────┬───────────────┘
+             │
+             ▼
+     Pedir usuario
+             │
+             ▼
+   ¿Cantidad (1-10)?
+   Validar entrada
+             │
+             ▼
+   Configurar parámetros
+             │
+             ▼
+        ┌───────────┐
+        │   BUCLE   │
+        └────┬──────┘
+             │
+             ▼
+   Generar contraseña
+             │
+             ▼
+   Evaluar fortaleza
+             │
+             ▼
+   Mostrar resultado
+             │
+     ¿Quedan más?
+        │       │
+       Sí      No
+        │       │
+        └───►  FIN
+```
+
+---
+
+### 🔐 Generación de contraseña
+
+```
+┌────────────────────────────┐
+│ generar_password()         │
+└────────────┬───────────────┘
+             │
+             ▼
+ Forzar caracteres obligatorios
+             │
+             ▼
+ Rellenar con aleatorios
+             │
+             ▼
+ Mezclar (shuffle)
+             │
+             ▼
+ ¿Contiene usuario?
+        │       │
+       Sí      No
+        │       │
+   Regenerar   ▼
+        │   Devolver pwd
+```
+
+---
+
+### 💪 Evaluador de fortaleza
+
+```
+Inicializar puntuación = 0
+
+Longitud:
+≥8  → +1
+≥12 → +1
+≥16 → +1
+
+Tipos:
+Mayúsculas → +1
+Minúsculas → +1
+Números    → +1
+Símbolos   → +1
+
+Resultado:
+0-2  → Débil
+3-4  → Media
+5-6  → Fuerte
+7+   → Muy fuerte
+```
+
+---
+
+### 🧠 ¿Por qué `secrets`?
+
+```
+random  → predecible ❌
+secrets → seguro ✔️
+```
+
+---
+
+### 📝 Evolución del proyecto
+
+| Paso   | Mejora                |
+| ------ | --------------------- |
+| 1️⃣    | Generación básica     |
+| 2️⃣    | Longitud configurable |
+| 3️⃣    | Tipos obligatorios    |
+| 4️⃣    | Validaciones          |
+| 5️⃣    | Seguridad usuario     |
+| 6️⃣    | Validación robusta    |
+| 7️⃣    | Longitud 8–128        |
+| 8️⃣    | Configuración         |
+| 9️⃣    | Evaluador             |
+| 🔟     | Generación múltiple   |
+| 1️⃣1️⃣ | Modularización        |
+
+---
+
+### 💻 Ejemplo
+
+```bash
+$ python main.py
+
+Usuario: fireforgegammer
+Cantidad: 3
+
+1. K!9vQr#mXwLp3T@n → Muy fuerte
+2. aZ$4nWqL!2yBpR%v → Muy fuerte
+3. Jm@8XkQr!nTv#2Yw → Muy fuerte
+```
+
+---
+
+## 🚀 Uso
+
+```
+git clone https://github.com/Fireforgegammer/Mini_Proyectos_Python.git
+```
+```
+cd Mini_Proyectos_Python/generador_contraseñas
+```
+```
+python main.py
+```
+
+---
+
+## 🛠️ Requisitos
+
+* Python 3.6+
+* Sin librerías externas
+
+---
+
+## 📜 Licencia
+
+MIT
+
+---
+
+## 👤 Autor
+
+**Fireforgegammer**
+https://github.com/Fireforgegammer
+
+---
+
+<div align="center">
+
+⭐ Dale estrella si te ayuda ⭐
+
+</div>

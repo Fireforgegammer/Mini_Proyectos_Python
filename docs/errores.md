@@ -1,6 +1,7 @@
-💥 ERROR
+# 💥 ERROR
 ImportError: cannot import name 'eliminar_password' from 'ui.acciones'
-🎯 QUÉ SIGNIFICA
+
+# 🎯 QUÉ SIGNIFICA
 
 👉 En tu main.py haces esto:
 
@@ -8,7 +9,7 @@ from ui.acciones import eliminar_password
 
 👉 Pero en acciones.py:
 
-❌ NO existe una función llamada exactamente eliminar_password
+# ❌ NO existe una función llamada exactamente eliminar_password
 
 🔍 CONFIRMA ESTO
 
@@ -16,11 +17,11 @@ Abre src/ui/acciones.py y busca:
 
 def eliminar_password():
 🧨 CASOS POSIBLES
-❌ Caso 1: No existe
+# ❌ Caso 1: No existe
 
 👉 Entonces por eso falla
 
-❌ Caso 2: Tiene otro nombre
+# ❌ Caso 2: Tiene otro nombre
 
 Ejemplo:
 
@@ -29,7 +30,7 @@ def eliminar_contrasena():
 👉 Entonces tienes que importar ese nombre:
 
 from ui.acciones import eliminar_contrasena
-❌ Caso 3: Está mal escrito
+# ❌ Caso 3: Está mal escrito
 
 Ejemplo:
 
@@ -37,18 +38,18 @@ def eliminar_pasword():  # falta una "s"
 
 👉 Python es literal → no coincide
 
-✅ SOLUCIONES
-✔ Opción A (rápida)
+# ✅ SOLUCIONES
+## ✔ Opción A (rápida)
 
 Crea la función en acciones.py:
 
 def eliminar_password():
     print("🗑️ Eliminar password (pendiente implementar)")
-✔ Opción B (mejor)
+## ✔ Opción B (mejor)
 
 Ajusta el import en main.py al nombre real
 
-🔥 CONSEJO PRO
+# 🔥 CONSEJO PRO
 
 Para evitar estos errores:
 
@@ -61,7 +62,7 @@ Si no te lleva a la función → no existe
 💥 El error no es de ejecución
 💥 Es de nombre de función
 
-👇 Siguiente paso
+### 👇 Siguiente paso
 
 Pásame el contenido completo de acciones.py
 y te digo exactamente qué nombres debes usar sin fallar 🔥
@@ -70,21 +71,21 @@ ahi lo tienes y da este error
 
 Perfecto, ahora sí: este es el problema real de verdad 👇
 
-💥 ERROR
+#### 💥 ERROR
 ModuleNotFoundError: No module named 'core'
-🎯 QUÉ SIGNIFICA
+#### 🎯 QUÉ SIGNIFICA
 
 👉 Python no encuentra la carpeta core como módulo
 
 Y esto pasa porque estás ejecutando:
 
 python src/ui/acciones.py   ❌
-🔴 IMPORTANTE (esto es la clave)
+# 🔴 IMPORTANTE (esto es la clave)
 
 Tu proyecto está pensado para ejecutarse desde la raíz así:
 
 python src/main.py   ✅
-💣 Por qué falla
+## 💣 Por qué falla
 
 Cuando ejecutas directamente:
 
@@ -97,11 +98,11 @@ src/ui/
 Entonces intenta buscar:
 
 src/ui/core  ❌ (no existe)
-✅ SOLUCIÓN
+# ✅ SOLUCIÓN
 ✔ SIEMPRE ejecuta desde la raíz del proyecto:
 cd C:\Users\IA\Documents\GitHub\Mini_Proyectos_Python
 python src/main.py
-🚀 OPCIÓN PRO (recomendada)
+# 🚀 OPCIÓN PRO (recomendada)
 
 Para evitar estos problemas en el futuro:
 
@@ -113,7 +114,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 👉 Esto fuerza a Python a reconocer src como raíz
 
-🔥 ALTERNATIVA LIMPIA (nivel pro)
+## 🔥 ALTERNATIVA LIMPIA (nivel pro)
 
 Usar imports absolutos desde src:
 
@@ -122,7 +123,7 @@ from src.core.storage import cargar_passwords
 Pero esto requiere ejecutar como módulo:
 
 python -m src.main
-🧠 RESUMEN
+# 🧠 RESUMEN
 
 💥 No es un error de código
 💥 Es cómo estás ejecutando el programa
